@@ -7,12 +7,10 @@ public class WrapAroundController : MonoBehaviour
 
     public bool isOutOfBounds { get; private set; }
     private Camera mainCamera;
-    private Rigidbody2D rb2d;
 
     void Start()
     {
         mainCamera = Camera.main;
-        rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
