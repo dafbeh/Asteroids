@@ -179,7 +179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886e373ab34869247bc8b140d7e3f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 855498826956199780}
+  sprites:
+  - {fileID: -8709049659371883571, guid: f11bee4f8e191e54e986fa38e92f9598, type: 3}
+  - {fileID: 7211149838496185286, guid: f410a2d7c5c84b444bd41f238c5af7a7, type: 3}
+  - {fileID: 3432156191818868088, guid: ca75ee1379b91d44582f9a007993b4fc, type: 3}
+  - {fileID: 7862087213601865030, guid: 9ec1514774fe5d74eb097e6916c21c44, type: 3}
   speed: 5000
   size: 3
   explosionParticle: {fileID: 24754063844572659, guid: bb513e9c4a5063c49b3f0c3fbc3461c7, type: 3}

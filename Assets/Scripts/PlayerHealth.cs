@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Numerics;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private ParticleSystem explosionParticle;
+
     [SerializeField] private int Health;
     [SerializeField] private int MaxHealth;
 
@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
             if(Health > 1)
             {
                 Health--;
+                Instantiate(explosionParticle, transform.position, Quaternion.identity);
                 gameObject.SetActive(false);
                 gameManager.RespawnPlayer(gameObject);
             } else {

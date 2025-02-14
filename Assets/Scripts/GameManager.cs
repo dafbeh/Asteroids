@@ -71,6 +71,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        
+        StartCoroutine(endGameMenu());
+    }
+
+    private IEnumerator endGameMenu()
+    {
+
+        yield return new WaitForSeconds(1);
+
     }
 }
