@@ -5,7 +5,6 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float maxSpeed;
 
     private WrapAroundController wrapAroundController;
     private Rigidbody2D rb2d;
@@ -16,31 +15,22 @@ public class AsteroidController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
 
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+
+        Move();
     }
 
     void FixedUpdate()
     {
-        Move();
-        ClampSpeed();
+        if(wrapAroundController.isOutOfBounds)
+        {
+            Vector2 newDir = Random.insideUnitCircle.normalized;
+
+            rb2d.linearVelocity = newDir;        
+        }
     }
 
     private void Move()
     {
         rb2d.AddForce(transform.up * speed);
-
-        if(wrapAroundController.isOutOfBounds)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, Random.Range(20, 70));
-        }
-    }
-
-    private void ClampSpeed()
-    {
-        Vector2 velocity = rb2d.linearVelocity;
-
-        if (velocity.magnitude > maxSpeed)
-        {
-            rb2d.linearVelocity = velocity.normalized * maxSpeed;
-        }
     }
 }
