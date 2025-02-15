@@ -51,9 +51,10 @@ public class AsteroidController : MonoBehaviour
                 for(int i = 0; i < 2; i++) {
                     Instantiate(this, gameObject.transform.position, gameObject.transform.rotation);
                 }
-                Instantiate(explosionParticle, transform.position, Quaternion.identity);
             }
+            Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            ScoreManager.instance.AddScore();
         }
     }
 }
