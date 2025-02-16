@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -71,13 +71,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        int score = ScoreManager.instance.getScore();
+        Leaderboard.instance.updateLeaderboard(score);
         StartCoroutine(endGameMenu());
     }
 
     private IEnumerator endGameMenu()
     {
-
         yield return new WaitForSeconds(1);
-
     }
 }

@@ -4,12 +4,17 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
-    [SerializeField] private int score;
+    [SerializeField] public int score;
     [SerializeField] private TextMeshProUGUI scoreText;
     
     void Awake()
     {
         instance = this;
+    }
+
+    public int getScore() 
+    {
+        return score;
     }
 
     public void AddScore()

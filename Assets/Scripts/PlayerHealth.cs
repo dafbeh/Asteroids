@@ -13,7 +13,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Sprite heartFull;
     [SerializeField] private Sprite heartEmpty;
 
-
     public GameManager gameManager;
 
     private Rigidbody2D rb2d;
@@ -61,5 +60,17 @@ public class PlayerHealth : MonoBehaviour
     private void addHealth()
     {
         Health++;
+        switch(Health)
+        {
+            case 1:
+                heart[2].GetComponent<SpriteRenderer>().sprite = heartFull;
+                break;
+            case 2: 
+                heart[1].GetComponent<SpriteRenderer>().sprite = heartFull;
+                break;
+            case 3:
+                heart[0].GetComponent<SpriteRenderer>().sprite = heartFull;
+                break;
+        }
     }
 }
