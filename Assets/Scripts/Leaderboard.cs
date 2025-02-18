@@ -35,7 +35,6 @@ public class Leaderboard : MonoBehaviour
         for(int i = 0; i < scores.Length; i++)
         {
             if(newScore > scores[i]) {
-                print("You have beaten place " + (i + 1));
                 if(PlayerPrefs.HasKey("Leaderboard_score_" + i)) {
 
                     // Shift down array

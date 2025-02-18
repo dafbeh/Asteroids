@@ -6,15 +6,23 @@ public class cameraZoom : MonoBehaviour
     [SerializeField] private Camera cam;
     private float zoom = 5;
     private float velocity = 0f;
+    private bool wantZoom = true;
+
+    public static cameraZoom instance;
 
     void Awake()
     {
+        instance = this;
         cam.orthographicSize = 0.5645f;
     }
 
     void Start()
     {
-        StartCoroutine(startZoom());
+        if(wantZoom) {
+            StartCoroutine(startZoom());
+        } else {
+            cam.orthographicSize = 5;
+        }
     }
 
     private IEnumerator startZoom()
@@ -26,5 +34,10 @@ public class cameraZoom : MonoBehaviour
         }
 
         cam.orthographicSize = zoom;
+    }
+
+    public void setWantZoom(bool value)
+    {
+        wantZoom = value;
     }
 }

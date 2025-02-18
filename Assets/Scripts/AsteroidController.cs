@@ -44,7 +44,7 @@ public class AsteroidController : MonoBehaviour
                 for(int i = 0; i < 2; i++) {
                     Instantiate(this, gameObject.transform.position, gameObject.transform.rotation);
                 }
-        }
+            }
             Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
             ScoreManager.instance.AddScore();
@@ -53,21 +53,29 @@ public class AsteroidController : MonoBehaviour
 
     public void SpawnAsteroid()
     {
-        int edge = Random.Range(1,4);
+        int edge = Random.Range(1, 5);
         float x = 0f;
         float y = 0f;
+        float spawnOffset = 1.5f;
 
-        if(edge == 1) {
+        if (edge == 1)
+        {
             x = Random.Range(0f, 1f);
-            y = 1f;
-        } else if (edge == 2) {
+            y = 1f + spawnOffset;
+        }
+        else if (edge == 2)
+        {
             x = Random.Range(0f, 1f);
-            y = 0f;
-        } else if (edge == 3) {
-            x = 0f;
+            y = 0f - spawnOffset;
+        }
+        else if (edge == 3)
+        {
+            x = 0f - spawnOffset;
             y = Random.Range(0f, 1f);
-        } else if (edge == 4) {
-            x = 1f;
+        }
+        else if (edge == 4)
+        {
+            x = 1f + spawnOffset;
             y = Random.Range(0f, 1f);
         }
 
@@ -82,6 +90,5 @@ public class AsteroidController : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         rb2d.AddForce(transform.up * speed);
-        
     }
 }

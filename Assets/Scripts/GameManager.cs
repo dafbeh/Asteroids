@@ -21,19 +21,22 @@ public class GameManager : MonoBehaviour
         if(asteroidCount == 0 && !spawningAsteroids)
         {
             level++;
-            spawningAsteroids = true;
             StartCoroutine(SpawnAsteroidsWithDelay());
         }
     }
 
     private IEnumerator SpawnAsteroidsWithDelay()
     {
-        yield return new WaitForSeconds(1f);  
+        spawningAsteroids = true;
+        while(mainCamera.orthographicSize <= 4.5f) {
+            yield return null;
+        }
 
         int asteroids = (2 * level) + 2;
         for (int i = 0; i < asteroids; i++) 
         {
             Instantiate(asteroidPrefab);
+            yield return new WaitForSeconds(0.1f);
         }
 
         spawningAsteroids = false;
@@ -75,11 +78,8 @@ public class GameManager : MonoBehaviour
     {
         int score = ScoreManager.instance.getScore();
         Leaderboard.instance.updateLeaderboard(score);
-        StartCoroutine(endGameMenu());
-    }
-
-    private IEnumerator endGameMenu()
-    {
-        yield return new WaitForSeconds(1);
+        
+        GameOver gameOver = FindFirstObjectByType<GameOver>();
+        gameOver.toggleGameOver();
     }
 }
