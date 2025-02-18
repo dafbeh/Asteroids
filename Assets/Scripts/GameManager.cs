@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     private Camera mainCamera;
     private bool spawningAsteroids;
+    private bool insideAsteroid = false;
 
     void Start()
     {
@@ -20,65 +21,54 @@ public class GameManager : MonoBehaviour
         if(asteroidCount == 0 && !spawningAsteroids)
         {
             level++;
+            spawningAsteroids = true;
             StartCoroutine(SpawnAsteroidsWithDelay());
         }
     }
 
     private IEnumerator SpawnAsteroidsWithDelay()
     {
-        spawningAsteroids = true;
-
         yield return new WaitForSeconds(1f);  
 
-        int asteroids = 2 + (2 * level);
+        int asteroids = (2 * level) + 2;
         for (int i = 0; i < asteroids; i++) 
         {
-            SpawnAsteroid();
+            Instantiate(asteroidPrefab);
         }
 
         spawningAsteroids = false;
     }
 
-    private void SpawnAsteroid()
-    {
-        int edge = Random.Range(0,4);
-        float x = 0f;
-        float y = 0f;
-
-        if(edge == 0) {
-
-        } else if(edge == 1) {
-            x = Random.Range(0f, 1f);
-            y = 1f;
-        } else if (edge == 2) {
-            x = Random.Range(0f, 1f);
-            y = 0f;
-        } else if (edge == 3) {
-            x = 0f;
-            y = Random.Range(0f, 1f);
-        } else if (edge == 4) {
-            x = 1f;
-            y = Random.Range(0f, 1f);
-        }
-
-        Vector3 spawnPosition = new Vector3(x, y, 0);
-        Vector3 viewportToWorldPoint = mainCamera.ViewportToWorldPoint(spawnPosition);
-        Vector2 worldSpawnPosition = new Vector2(viewportToWorldPoint.x, viewportToWorldPoint.y);
-
-        AsteroidController asteroid = Instantiate(asteroidPrefab, worldSpawnPosition, Quaternion.identity);
-        asteroid.gameManager = this;
-    }
-
     public void RespawnPlayer(GameObject player)
     {
-        StartCoroutine(respawn(player));
+        if(insideAsteroid) {
+            StartCoroutine(respawn(player));
+        } else {
+            player.transform.localPosition = new Vector3(0,0,0);
+            player.SetActive(true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Asteroid"))
+        {
+            insideAsteroid = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Asteroid"))
+        {
+            insideAsteroid = false;
+        }
     }
 
     private IEnumerator respawn(GameObject player)
     {
-        yield return new WaitForSeconds(1);
-        player.transform.localPosition = new Vector3(0,0,0);
-        player.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        RespawnPlayer(player);
     }
 
     public void GameOver()

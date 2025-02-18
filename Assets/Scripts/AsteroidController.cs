@@ -10,34 +10,27 @@ public class AsteroidController : MonoBehaviour
     [SerializeField] public float size = 3;
     [SerializeField] private ParticleSystem explosionParticle;
 
+    private Camera mainCamera;
+
     private SpriteRenderer spriteRenderer;
     private WrapAroundController wrapAroundController;
     private Rigidbody2D rb2d;
     public GameManager gameManager;
 
-    void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         wrapAroundController = GetComponent<WrapAroundController>();
         rb2d = GetComponent<Rigidbody2D>();
         gameManager = FindFirstObjectByType<GameManager>();
-
-        spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
-        transform.localScale = new Vector3(0.3f * size, 0.3f * size, 1f);
-        transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-        rb2d.AddForce(transform.up * speed);
-
-        gameManager.asteroidCount++;
+        mainCamera = FindFirstObjectByType<Camera>();
     }
 
-    void FixedUpdate()
+    void Start()
     {
-        if(wrapAroundController.isOutOfBounds)
-        {
-            Vector2 newDir = Random.insideUnitCircle.normalized;
+        SpawnAsteroid();
 
-            //rb2d.linearVelocity = newDir;        
-        }
+        gameManager.asteroidCount++;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,10 +44,44 @@ public class AsteroidController : MonoBehaviour
                 for(int i = 0; i < 2; i++) {
                     Instantiate(this, gameObject.transform.position, gameObject.transform.rotation);
                 }
-            }
+        }
             Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
             ScoreManager.instance.AddScore();
         }
+    }
+
+    public void SpawnAsteroid()
+    {
+        int edge = Random.Range(1,4);
+        float x = 0f;
+        float y = 0f;
+
+        if(edge == 1) {
+            x = Random.Range(0f, 1f);
+            y = 1f;
+        } else if (edge == 2) {
+            x = Random.Range(0f, 1f);
+            y = 0f;
+        } else if (edge == 3) {
+            x = 0f;
+            y = Random.Range(0f, 1f);
+        } else if (edge == 4) {
+            x = 1f;
+            y = Random.Range(0f, 1f);
+        }
+
+        Vector3 spawnPosition = new Vector3(x, y, 0);
+        Vector3 viewportToWorldPoint = mainCamera.ViewportToWorldPoint(spawnPosition);
+        Vector2 worldSpawnPosition = new Vector2(viewportToWorldPoint.x, viewportToWorldPoint.y);
+
+        spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+        transform.localScale = new Vector3(0.3f * size, 0.3f * size, 1f);
+        if(size == 3) {
+            transform.position = worldSpawnPosition;
+        }
+        transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+        rb2d.AddForce(transform.up * speed);
+        
     }
 }
