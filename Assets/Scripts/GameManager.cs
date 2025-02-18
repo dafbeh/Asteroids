@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int level = 0;
 
     private Camera mainCamera;
+    private bool spawningAsteroids;
 
     void Start()
     {
@@ -16,15 +17,26 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(asteroidCount == 0)
+        if(asteroidCount == 0 && !spawningAsteroids)
         {
             level++;
-
-            int asteroids = 2 + (2 * level);
-            for(int i = 0; i < asteroids; i++) {
-                SpawnAsteroid();
-            }
+            StartCoroutine(SpawnAsteroidsWithDelay());
         }
+    }
+
+    private IEnumerator SpawnAsteroidsWithDelay()
+    {
+        spawningAsteroids = true;
+
+        yield return new WaitForSeconds(1f);  
+
+        int asteroids = 2 + (2 * level);
+        for (int i = 0; i < asteroids; i++) 
+        {
+            SpawnAsteroid();
+        }
+
+        spawningAsteroids = false;
     }
 
     private void SpawnAsteroid()
