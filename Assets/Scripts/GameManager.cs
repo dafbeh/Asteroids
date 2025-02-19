@@ -44,12 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void RespawnPlayer(GameObject player)
     {
-        if(insideAsteroid) {
-            StartCoroutine(respawn(player));
-        } else {
-            player.transform.localPosition = new Vector3(0,0,0);
-            player.SetActive(true);
-        }
+        StartCoroutine(respawn(player));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,8 +65,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator respawn(GameObject player)
     {
-        yield return new WaitForSeconds(1f);
-        RespawnPlayer(player);
+        while(insideAsteroid) {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        player.transform.localPosition = new Vector3(0,0,0);
+        player.SetActive(true);
     }
 
     public void GameOver()
