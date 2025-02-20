@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 42f311ff829a3f844a5857e8b4bbf4ac
+guid: 43f22e2ac84425e4f9b7ffcd165983fa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8143328839320259195
-    second: shootMorePowerup_0
+      213: -2557903524340642638
+    second: selectedInventory_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shootMorePowerup_0
+      name: selectedInventory_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 47
-        width: 98
-        height: 98
+        x: 0
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5853f1bd0951dfe80800000000000000
-      internalID: -8143328839320259195
+      spriteID: 2bcc4f50c40808cd0800000000000000
+      internalID: -2557903524340642638
       vertices: []
       indices: 
       edges: []

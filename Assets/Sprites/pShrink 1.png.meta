@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 0c06d4136c518864ab919505e0090186
+guid: dd039b3b1525c294d9c9f7e53bbd5f6f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8085638210359714210
-    second: shrinkOrb_0
+      213: -5564197667937651538
+    second: pShrink_0
+  - first:
+      213: 4782956835500891460
+    second: pShrink_1
+  - first:
+      213: 2385031557232221182
+    second: pShrink_2
+  - first:
+      213: 6683731394287558985
+    second: pShrink_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,11 +122,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shrinkOrb_0
+      name: pShrink_0
       rect:
         serializedVersion: 2
         x: 41
-        y: 47
+        y: 239
         width: 104
         height: 104
       alignment: 0
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2a1e0dedc15f53070800000000000000
-      internalID: 8085638210359714210
+      spriteID: ea4f48e83bff7c2b0800000000000000
+      internalID: -5564197667937651538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pShrink_1
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 239
+        width: 104
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44d9e0496e9706240800000000000000
+      internalID: 4782956835500891460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pShrink_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 53
+        width: 116
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efb5cea9095591120800000000000000
+      internalID: 2385031557232221182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pShrink_3
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 53
+        width: 116
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 941e2aa8a4261cc50800000000000000
+      internalID: 6683731394287558985
       vertices: []
       indices: 
       edges: []
@@ -147,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pShrink_0: -5564197667937651538
+      pShrink_1: 4782956835500891460
+      pShrink_2: 2385031557232221182
+      pShrink_3: 6683731394287558985
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
