@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidController asteroidPrefab;
     [SerializeField] public int asteroidCount = 0;
     [SerializeField] private int level = 0;
+    [SerializeField] private GameObject[] powerUps;
 
     private Camera mainCamera;
     private bool spawningAsteroids;
@@ -22,6 +23,11 @@ public class GameManager : MonoBehaviour
         {
             level++;
             StartCoroutine(SpawnAsteroidsWithDelay());
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            spawnPowerup();
         }
     }
 
@@ -40,6 +46,12 @@ public class GameManager : MonoBehaviour
         }
 
         spawningAsteroids = false;
+    }
+
+    private void spawnPowerup() {
+        int randomNumber = Random.Range(0,powerUps.Length);
+
+        Instantiate(powerUps[randomNumber]);
     }
 
     public void RespawnPlayer(GameObject player)
@@ -80,7 +92,6 @@ public class GameManager : MonoBehaviour
         int score = ScoreManager.instance.getScore();
         Leaderboard.instance.updateLeaderboard(score);
         
-        GameOver gameOver = FindFirstObjectByType<GameOver>();
-        gameOver.toggleGameOver();
+        FindFirstObjectByType<GameOver>().toggleGameOver();
     }
 }

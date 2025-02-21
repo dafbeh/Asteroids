@@ -3,14 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    public GameOver instance;
-
     private CanvasGroup canvas;
 
     void Awake()
     {
         canvas = GetComponent<CanvasGroup>();
-        instance = this;
 
         canvas.interactable = false;
         canvas.alpha = 0;

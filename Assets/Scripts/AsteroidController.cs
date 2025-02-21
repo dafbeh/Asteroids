@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -58,25 +59,26 @@ public class AsteroidController : MonoBehaviour
         float y = 0f;
         float spawnOffset = 1.5f;
 
-        if (edge == 1)
-        {
+        switch(edge) {
+        case 1:
             x = Random.Range(0f, 1f);
             y = 1f + spawnOffset;
-        }
-        else if (edge == 2)
-        {
+            break;
+        
+        case 2:
             x = Random.Range(0f, 1f);
             y = 0f - spawnOffset;
-        }
-        else if (edge == 3)
-        {
+            break;
+        
+        case 3:
             x = 0f - spawnOffset;
             y = Random.Range(0f, 1f);
-        }
-        else if (edge == 4)
-        {
+            break;
+        
+        case 4:
             x = 1f + spawnOffset;
             y = Random.Range(0f, 1f);
+            break;
         }
 
         Vector3 spawnPosition = new Vector3(x, y, 0);

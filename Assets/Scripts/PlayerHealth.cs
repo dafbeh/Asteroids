@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private ParticleSystem explosionParticle;
 
-    [SerializeField] private int Health;
+    [SerializeField] public int Health;
     [SerializeField] private int MaxHealth;
 
     [SerializeField] private GameObject[] heart;
@@ -14,13 +14,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Sprite heartEmpty;
 
     public GameManager gameManager;
-
-    private Rigidbody2D rb2d;
-
-    void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,20 +29,13 @@ public class PlayerHealth : MonoBehaviour
         switch(Health)
         {
             case 3:
-                heart[2].GetComponent<SpriteRenderer>().sprite = heartEmpty;
-                Instantiate(explosionParticle, transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-                gameManager.RespawnPlayer(gameObject);
+                handleEffects(2);
                 break;
             case 2: 
-                heart[1].GetComponent<SpriteRenderer>().sprite = heartEmpty;
-                Instantiate(explosionParticle, transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-                gameManager.RespawnPlayer(gameObject);
+                handleEffects(1);
                 break;
             case 1:
-                heart[0].GetComponent<SpriteRenderer>().sprite = heartEmpty;
-                Instantiate(explosionPrefab, gameObject.transform.position, gameObject.transform.rotation);
+                handleEffects(0);
                 Destroy(gameObject);
                 gameManager.GameOver();
                 break;
@@ -57,20 +43,38 @@ public class PlayerHealth : MonoBehaviour
         Health--;
     }
 
-    private void addHealth()
+    private void handleEffects(int i) {
+        heart[i].GetComponent<SpriteRenderer>().sprite = heartEmpty;
+        Instantiate(explosionParticle, transform.position, Quaternion.identity);
+
+        if(i != 0) {
+            gameObject.SetActive(false);
+            gameManager.RespawnPlayer(gameObject);
+        }
+    }
+
+    public void addHealth()
     {
+        if(Health == MaxHealth) {
+            return;
+        }
+
         Health++;
         switch(Health)
         {
             case 1:
-                heart[2].GetComponent<SpriteRenderer>().sprite = heartFull;
+                fillHeartSprite(0);
                 break;
             case 2: 
-                heart[1].GetComponent<SpriteRenderer>().sprite = heartFull;
+                fillHeartSprite(1);
                 break;
             case 3:
-                heart[0].GetComponent<SpriteRenderer>().sprite = heartFull;
+                fillHeartSprite(2);
                 break;
         }
+    }
+
+    private void fillHeartSprite(int i) {
+        heart[i].GetComponent<SpriteRenderer>().sprite = heartFull;
     }
 }
