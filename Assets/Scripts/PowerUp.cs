@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField] private PowerUpEffect effect;
+    [SerializeField] public PowerUpEffect effect;
     [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private bool pickUp = false;
 
@@ -47,6 +47,7 @@ public class PowerUp : MonoBehaviour
     }
 
     private void PickUp() {
-        print("Picking up");
+        SlotManager slotManager = FindFirstObjectByType<SlotManager>();
+        slotManager.storeItem(gameObject);
     }
 }
