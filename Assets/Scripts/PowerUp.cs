@@ -6,6 +6,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] public PowerUpEffect effect;
     [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private bool pickUp = false;
+    [SerializeField] public float timer;
 
     private Rigidbody2D rb2d;
 

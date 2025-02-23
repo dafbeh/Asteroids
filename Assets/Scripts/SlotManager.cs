@@ -1,4 +1,5 @@
 using System.Collections;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,10 @@ public class SlotManager : MonoBehaviour
     [SerializeField] private Sprite unselected;
     [SerializeField] private Sprite selected;
     [SerializeField] private GameObject player;
+    [SerializeField] private ParticleSystem explosion;
 
     private PowerUpEffect[] storedPowerUp = new PowerUpEffect[3];
+    private bool[] abilityInUse = new bool[3];
     private int activeSlot = 0;
 
     void Update()
@@ -40,26 +43,26 @@ public class SlotManager : MonoBehaviour
         }  
 
         if(Input.GetKeyDown(KeyCode.LeftShift)) {
-            useItem();
+            if(!abilityInUse[activeSlot]) {
+                useItem();
+            }
         }
     }
 
     public void storeItem(GameObject powerUp)
     {
-        Sprite sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
-        PowerUpEffect effect = powerUp.GetComponent<PowerUp>().effect;
-        int slot = 0;
-
         for(int i = 0; i < storedPowerUp.Length; i++) {
             if(storedPowerUp[i] == null) {
+                Sprite sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
+                PowerUpEffect effect = powerUp.GetComponent<PowerUp>().effect;
                 storedPowerUp[i] = effect;
-                slot = i;
+                slots[i].transform.GetChild(0).GetComponent<Image>().sprite = sprite;
+                slots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
                 break;
+            } else {
+                Instantiate(explosion, player.transform.position, Quaternion.identity);
             }
         }
-
-        slots[slot].transform.GetChild(0).GetComponent<Image>().sprite = sprite;
-        slots[slot].transform.GetChild(0).GetComponent<Image>().enabled = true;
     }
 
     public void useItem()
@@ -68,13 +71,16 @@ public class SlotManager : MonoBehaviour
             return;
         }
 
-        Image image = slots[activeSlot].transform.GetChild(0).GetComponent<Image>();
-        PowerUpEffect effect = storedPowerUp[activeSlot];
-        Image timerImage = slots[activeSlot].transform.GetChild(1).GetComponent<Image>(); 
+        int useSlot = activeSlot;
+        Image image = slots[useSlot].transform.GetChild(0).GetComponent<Image>();
+        PowerUpEffect effect = storedPowerUp[useSlot];
+        Image timerImage = slots[useSlot].transform.GetChild(1).GetComponent<Image>(); 
         float time = 10f;
 
         StartCoroutine(timer());
         timerImage.enabled = true;
+        abilityInUse[useSlot] = true;
+        effect.Apply(player);
 
         IEnumerator timer() {
             float elapsedTime = 0f;
@@ -86,13 +92,13 @@ public class SlotManager : MonoBehaviour
                 yield return null;
             }
 
-            image.sprite = null;
-            storedPowerUp[activeSlot] = null;
             image.enabled = false;
-            StartCoroutine(timer());
-            effect.Apply(player);
-            effect.Apply(player);
+            image.sprite = null;
+            storedPowerUp[useSlot] = null;
+
             timerImage.enabled = false;
+            timerImage.fillAmount = 1f;
+            abilityInUse[useSlot] = false;
         }
     }
 }

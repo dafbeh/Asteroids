@@ -1,9 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Powerups/ShrinkPower")]
 public class ShrinkPower : PowerUpEffect
 {
-        public override void Apply(GameObject gameObject) {
+	private Vector3 originalSize;
+	private Vector3 newSize = new Vector3(0.15f, 0.15f, 0.15f);
+	private GameObject player;
 
-        }
+    public override void Apply(GameObject gameObject) {
+		originalSize = gameObject.transform.localScale;
+		player = gameObject;
+
+		player.transform.localScale = newSize;
+
+		gameObject.GetComponent<MonoBehaviour>().StartCoroutine(resetPower());
+    }
+
+	private IEnumerator resetPower() 
+	{
+		yield return new WaitForSeconds(10f);
+
+		player.transform.localScale = originalSize;
+	}
 }
