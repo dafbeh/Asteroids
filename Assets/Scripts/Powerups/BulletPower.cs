@@ -10,6 +10,7 @@ public class BulletPower : PowerUpEffect
         
         weapon.GetComponent<Weapon>().autoFire = true;
 
+        PlayerHealth.OnPlayerDeath += deathReset;
         gameObject.GetComponent<MonoBehaviour>().StartCoroutine(resetPower());
     }
 
@@ -19,4 +20,10 @@ public class BulletPower : PowerUpEffect
 
         weapon.GetComponent<Weapon>().autoFire = false;
 	}
+
+    private void deathReset() 
+    {
+        weapon.GetComponent<Weapon>().autoFire = false;
+        PlayerHealth.OnPlayerDeath -= deathReset;
+    }
 }

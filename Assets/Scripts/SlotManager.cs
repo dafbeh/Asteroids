@@ -13,6 +13,7 @@ public class SlotManager : MonoBehaviour
     [SerializeField] private ParticleSystem explosion;
 
     private PowerUpEffect[] storedPowerUp = new PowerUpEffect[3];
+    private float[] storedTimers = new float[3];
     private bool[] abilityInUse = new bool[3];
     private int activeSlot = 0;
 
@@ -49,12 +50,14 @@ public class SlotManager : MonoBehaviour
         }
     }
 
-    public void storeItem(GameObject powerUp)
+    public void storeItem(PowerUp powerUp)
     {
         for(int i = 0; i < storedPowerUp.Length; i++) {
             if(storedPowerUp[i] == null) {
                 Sprite sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
                 PowerUpEffect effect = powerUp.GetComponent<PowerUp>().effect;
+                storedTimers[i] = powerUp.timer;
+
                 storedPowerUp[i] = effect;
                 slots[i].transform.GetChild(0).GetComponent<Image>().sprite = sprite;
                 slots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
@@ -75,7 +78,7 @@ public class SlotManager : MonoBehaviour
         Image image = slots[useSlot].transform.GetChild(0).GetComponent<Image>();
         PowerUpEffect effect = storedPowerUp[useSlot];
         Image timerImage = slots[useSlot].transform.GetChild(1).GetComponent<Image>(); 
-        float time = 10f;
+        float time = storedTimers[useSlot];
 
         StartCoroutine(timer());
         timerImage.enabled = true;
@@ -95,6 +98,7 @@ public class SlotManager : MonoBehaviour
             image.enabled = false;
             image.sprite = null;
             storedPowerUp[useSlot] = null;
+            storedTimers[useSlot] = 10f;
 
             timerImage.enabled = false;
             timerImage.fillAmount = 1f;

@@ -202,6 +202,7 @@ MonoBehaviour:
   effect: {fileID: 11400000, guid: bf2cea470f030d540be1c86816243894, type: 2}
   explosionParticle: {fileID: 24754063844572659, guid: c8e2ed77012b4c34b9499d54a57ec4bc, type: 3}
   pickUp: 1
+  timer: 5
 --- !u!114 &7956498221605357682
 MonoBehaviour:
   m_ObjectHideFlags: 0

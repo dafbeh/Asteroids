@@ -14,6 +14,7 @@ public class ShrinkPower : PowerUpEffect
 
 		player.transform.localScale = newSize;
 
+        PlayerHealth.OnPlayerDeath += deathReset;
 		gameObject.GetComponent<MonoBehaviour>().StartCoroutine(resetPower());
     }
 
@@ -23,4 +24,10 @@ public class ShrinkPower : PowerUpEffect
 
 		player.transform.localScale = originalSize;
 	}
+
+	private void deathReset() 
+    {
+		player.transform.localScale = originalSize;
+        PlayerHealth.OnPlayerDeath -= deathReset;
+    }
 }

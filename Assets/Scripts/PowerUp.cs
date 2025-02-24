@@ -49,6 +49,6 @@ public class PowerUp : MonoBehaviour
 
     private void PickUp() {
         SlotManager slotManager = FindFirstObjectByType<SlotManager>();
-        slotManager.storeItem(gameObject);
+        slotManager.storeItem(this);
     }
 }

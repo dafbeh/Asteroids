@@ -201,8 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: {fileID: 11400000, guid: 36fc81e7515dfdd429548a8067066410, type: 2}
   explosionParticle: {fileID: 24754063844572659, guid: c8e2ed77012b4c34b9499d54a57ec4bc, type: 3}
-  time: 0
   pickUp: 0
+  timer: 10
 --- !u!114 &8620271813466593868
 MonoBehaviour:
   m_ObjectHideFlags: 0

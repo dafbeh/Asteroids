@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,11 +16,14 @@ public class PlayerHealth : MonoBehaviour
 
     public GameManager gameManager;
 
+    public static event Action OnPlayerDeath;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Asteroid"))
         {
             removeHealth();
+            OnPlayerDeath?.Invoke();
         }
     }
 
