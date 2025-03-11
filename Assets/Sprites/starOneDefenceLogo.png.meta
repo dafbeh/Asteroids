@@ -497,7 +497,22 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      starOneDefenceLogo_0: 5193487251681734144
+      starOneDefenceLogo_1: 8733114621435753692
+      starOneDefenceLogo_10: -2046526238735507243
+      starOneDefenceLogo_11: 6248194562051115218
+      starOneDefenceLogo_12: -7462631373599942239
+      starOneDefenceLogo_13: -1961148436111992195
+      starOneDefenceLogo_14: 5956253639607835457
+      starOneDefenceLogo_2: 9213663221444758706
+      starOneDefenceLogo_3: -6760418486974399863
+      starOneDefenceLogo_4: -8048159526106511594
+      starOneDefenceLogo_5: 6599831478026921877
+      starOneDefenceLogo_6: 6575188058306927041
+      starOneDefenceLogo_7: -9069259125758330048
+      starOneDefenceLogo_8: -4323392331901265101
+      starOneDefenceLogo_9: -5719190164375504244
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

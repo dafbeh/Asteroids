@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      flashingYesButton_0: 8832106192532494081
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
