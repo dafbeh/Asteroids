@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireForce = 20f;
     [SerializeField] public bool autoFire = false;
-    private bool firing;
+    private bool firing = false;
 
     void Update()
     {
@@ -38,6 +38,10 @@ public class Weapon : MonoBehaviour
         firing = true;
         Fire();
         yield return new WaitForSeconds(cooldown);
+        firing = false;
+    }
+
+    private void OnDisable() {
         firing = false;
     }
 }

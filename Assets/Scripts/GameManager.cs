@@ -24,11 +24,6 @@ public class GameManager : MonoBehaviour
             level++;
             StartCoroutine(SpawnAsteroidsWithDelay());
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            spawnPowerup();
-        }
     }
 
     private IEnumerator SpawnAsteroidsWithDelay()
@@ -45,6 +40,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        spawnPowerup();
         spawningAsteroids = false;
     }
 
