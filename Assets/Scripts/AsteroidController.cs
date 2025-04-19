@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Helpers;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -54,34 +55,7 @@ public class AsteroidController : MonoBehaviour
 
     public void SpawnAsteroid()
     {
-        int edge = Random.Range(1, 5);
-        float x = 0f;
-        float y = 0f;
-        float spawnOffset = 1.5f;
-
-        switch(edge) {
-        case 1:
-            x = Random.Range(0f, 1f);
-            y = 1f + spawnOffset;
-            break;
-        
-        case 2:
-            x = Random.Range(0f, 1f);
-            y = 0f - spawnOffset;
-            break;
-        
-        case 3:
-            x = 0f - spawnOffset;
-            y = Random.Range(0f, 1f);
-            break;
-        
-        case 4:
-            x = 1f + spawnOffset;
-            y = Random.Range(0f, 1f);
-            break;
-        }
-
-        Vector3 spawnPosition = new Vector3(x, y, 0);
+        Vector3 spawnPosition = SpawnHelper.randomScreenLocation(1.5f);
         Vector3 viewportToWorldPoint = mainCamera.ViewportToWorldPoint(spawnPosition);
         Vector2 worldSpawnPosition = new Vector2(viewportToWorldPoint.x, viewportToWorldPoint.y);
 

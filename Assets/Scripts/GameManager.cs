@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Helpers;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,8 +47,9 @@ public class GameManager : MonoBehaviour
 
     private void spawnPowerup() {
         int randomNumber = Random.Range(0,powerUps.Length);
+        Vector3 location = SpawnHelper.randomScreenLocation(0f);
 
-        Instantiate(powerUps[randomNumber]);
+        Instantiate(powerUps[randomNumber], location, Quaternion.identity);
     }
 
     public void RespawnPlayer(GameObject player)
