@@ -89,6 +89,9 @@ public class GameManager : MonoBehaviour
     {
         int score = ScoreManager.instance.getScore();
         Leaderboard.instance.updateLeaderboard(score);
+
+        PlayerPrefs.SetInt("ActiveScore", score);
+        PlayerPrefs.Save();
         
         FindFirstObjectByType<GameOver>().toggleGameOver();
     }
