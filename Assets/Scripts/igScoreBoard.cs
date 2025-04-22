@@ -1,8 +1,6 @@
 using TMPro;
 using UnityEngine;
 using System;
-using NUnit.Framework.Interfaces;
-using UnityEngine.UIElements;
 
 public class igScoreBoard : MonoBehaviour
 {
@@ -11,8 +9,7 @@ public class igScoreBoard : MonoBehaviour
     private int currentScore;
     private int previousScore;
     private int boardLocation = 5;
-    private bool locationVerified = false;
-    private int[] scoresArray = new int[5]; // Default top 5 scores
+    private int[] scoresArray = new int[5];
 
     void Awake()
     {
@@ -31,7 +28,7 @@ public class igScoreBoard : MonoBehaviour
         if (boardLocation > 1 && currentScore > scoresArray[boardLocation - 1])
         {
             UpdateScoreboard();
-            Debug.Log("Top 5 updated. Current Score: " + currentScore + " location: " + boardLocation);
+            Debug.Log("Top 5 updated. Current Score: " + currentScore + " location: " + boardLocation + " next score: " + scoresArray[boardLocation - 1]);
         }
     }
 
@@ -49,31 +46,44 @@ public class igScoreBoard : MonoBehaviour
         int activeScore = PlayerPrefs.GetInt("ActiveScore", -1);
 
         string response = "";
+        bool inserted = false;
         boardLocation = 5;
 
-        for (int i = 0; i < scoreArray.Length; i++)
+        int count = 0;
+
+        for (int i = 0; count < 5 && i < scoreArray.Length; i++)
         {
-            scoresArray[i] = scoreArray[i];
-            string name = nameArray[i];
-            int score = scoreArray[i];
+            scoresArray[count] = scoreArray[i];
 
-            string line = "";
-
-            if (currentScore > score && !locationVerified)
+            if (!inserted && currentScore > scoreArray[i])
             {
-                line = writeLine(i + 1, activeName, score, true);
-                boardLocation = i + 1;
-                locationVerified = true;
+                response += writeLine(count + 1, activeName, currentScore, true);
+                boardLocation = count + 1;
+                inserted = true;
+                scoresArray[count] = currentScore;
+                count++;
+
+                if (count < 5)
+                {
+                    response += writeLine(count + 1, nameArray[i], scoreArray[i], false);
+                    scoresArray[count] = scoreArray[i];
+                    count++;
+                }
             }
             else
             {
-                line = writeLine(i + 1, name, score, false);
+                response += writeLine(count + 1, nameArray[i], scoreArray[i], false);
+                count++;
             }
-
-            response += line;
         }
 
-        locationVerified = false;
+        if (!inserted && count < 5)
+        {
+            response += writeLine(count + 1, activeName, currentScore, true);
+            boardLocation = count + 1;
+            scoresArray[count] = currentScore;
+        }
+
         scores.text = response;
     }
 
@@ -90,7 +100,9 @@ public class igScoreBoard : MonoBehaviour
             if(lineCount == boardLocation) {                
                 result += writeLine(boardLocation, activeName, currentScore, true);
             } else {
-                result += line + Environment.NewLine;
+                if(lineCount < 6) {
+                    result += line + Environment.NewLine;
+                }
             }
         }
         scores.text = result;
@@ -105,6 +117,7 @@ public class igScoreBoard : MonoBehaviour
         }
 
         if(green) {
+            line = location + ". " + name + " \t" + currentScore + Environment.NewLine;
             line = $"<color=#00FF00>{line}</color>";
         }
 

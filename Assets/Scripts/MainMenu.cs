@@ -37,21 +37,32 @@ public class MainMenu : MonoBehaviour
 
         for (int i = 0; i < scoreArray.Length; i++) 
         {
-            string line = (i + 1) + ". " + nameArray[i] + "    \t" + scoreArray[i];
-
-            if(nameArray[i].Length == 0) {
-                line = (i + 1) + ". " + nameArray[i] + "    \t\t" + scoreArray[i];
-            }
+            string line = writeLine(i+1, nameArray[i], scoreArray[i], false);
 
             if (nameArray[i] == activeName && scoreArray[i] == activeScore) 
             {
-                line = $"<color=#00FF00>{line}</color>";
+                line = writeLine(i+1, nameArray[i], scoreArray[i], true);
             }
 
-            response += line + Environment.NewLine;
+            response += line;
+        }
+        return response;
+    }
+
+    private string writeLine(int location, string name, int score, bool green) {
+
+        string line = location + ". " + name + " \t" + score + Environment.NewLine;
+
+        if(name.Length <= 1) {
+            line = location + ". " + name + " \t\t" + score + Environment.NewLine;
         }
 
-        return response;
+        if(green) {
+            line = location + ". " + name + " \t" + score + Environment.NewLine;
+            line = $"<color=#00FF00>{line}</color>";
+        }
+
+        return line;
     }
 
     public void playGame()
