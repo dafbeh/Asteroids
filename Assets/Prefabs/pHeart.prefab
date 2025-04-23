@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8620271813466593868}
   m_Layer: 0
   m_Name: pHeart
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class SlotManager : MonoBehaviour
     private float[] storedTimers = new float[3];
     private bool[] abilityInUse = new bool[3];
     private int activeSlot = 0;
+    private bool itemActivated = false;
 
     void Update()
     {
@@ -74,6 +76,10 @@ public class SlotManager : MonoBehaviour
             return;
         }
 
+        if(itemActivated) {
+            return;
+        }
+
         int useSlot = activeSlot;
         Image image = slots[useSlot].transform.GetChild(0).GetComponent<Image>();
         PowerUpEffect effect = storedPowerUp[useSlot];
@@ -84,6 +90,7 @@ public class SlotManager : MonoBehaviour
         timerImage.enabled = true;
         abilityInUse[useSlot] = true;
         effect.Apply(player);
+        itemActivated = true;
 
         IEnumerator timer() {
             float elapsedTime = 0f;
@@ -103,6 +110,7 @@ public class SlotManager : MonoBehaviour
             timerImage.enabled = false;
             timerImage.fillAmount = 1f;
             abilityInUse[useSlot] = false;
+            itemActivated = false;
         }
     }
 }

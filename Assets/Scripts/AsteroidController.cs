@@ -37,7 +37,7 @@ public class AsteroidController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") || collision.CompareTag("PowerUp"))
         {
             gameManager.asteroidCount--;
             if(size > 1) 

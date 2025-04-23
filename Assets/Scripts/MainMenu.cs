@@ -53,13 +53,17 @@ public class MainMenu : MonoBehaviour
 
         string line = location + ". " + name + " \t" + score + Environment.NewLine;
 
-        if(name.Length <= 1) {
+        if(name.Length <= 3) {
             line = location + ". " + name + " \t\t" + score + Environment.NewLine;
         }
 
         if(green) {
             line = location + ". " + name + " \t" + score + Environment.NewLine;
             line = $"<color=#00FF00>{line}</color>";
+
+            if(name.Length <= 3) {
+                line = location + ". " + name + " \t\t" + score + Environment.NewLine;
+            }
         }
 
         return line;

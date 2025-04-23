@@ -34,6 +34,15 @@ public class igScoreBoard : MonoBehaviour
 
     private void UpdateScoreboard()
     {
+        string activeName = PlayerPrefs.GetString("ActiveName", "Player");
+        int activeScore = PlayerPrefs.GetInt("ActiveScore", -1);
+
+        if(activeName == null) {
+            activeName  = "P" + UnityEngine.Random.Range(1000, 9999);
+            PlayerPrefs.SetString("ActiveName", activeName);
+            PlayerPrefs.Save();
+        }
+
         Leaderboard.instance.loadLeaderboard(out int[] scoreArray, out string[] nameArray);
 
         if (scoreArray == null || nameArray == null || scoreArray.Length != nameArray.Length)
@@ -41,9 +50,6 @@ public class igScoreBoard : MonoBehaviour
             scores.text = "Leaderboard data error.";
             return;
         }
-
-        string activeName = PlayerPrefs.GetString("ActiveName", "Player");
-        int activeScore = PlayerPrefs.GetInt("ActiveScore", -1);
 
         string response = "";
         bool inserted = false;
@@ -112,13 +118,17 @@ public class igScoreBoard : MonoBehaviour
 
         string line = location + ". " + name + " \t" + score + Environment.NewLine;
 
-        if(name.Length <= 1) {
+        if(name.Length <= 3) {
             line = location + ". " + name + " \t\t" + score + Environment.NewLine;
         }
 
         if(green) {
-            line = location + ". " + name + " \t" + currentScore + Environment.NewLine;
+            line = location + ". " + name + " \t" + score + Environment.NewLine;
             line = $"<color=#00FF00>{line}</color>";
+
+            if(name.Length <= 3) {
+                line = location + ". " + name + " \t\t" + score + Environment.NewLine;
+            }
         }
 
         return line;
