@@ -4,6 +4,7 @@ using Helpers;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField] private AsteroidController asteroidPrefab;
     [SerializeField] public int asteroidCount = 0;
     [SerializeField] private int level = 0;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         mainCamera = Camera.main;
     }
 
@@ -46,10 +48,23 @@ public class GameManager : MonoBehaviour
     }
 
     private void spawnPowerup() {
-        int randomNumber = Random.Range(0,powerUps.Length);
+        int id = Random.Range(0, powerUps.Length);
         Vector3 location = SpawnHelper.randomScreenLocation(0f);
 
-        Instantiate(powerUps[randomNumber], location, Quaternion.identity);
+        GameObject powerUpObj = Instantiate(powerUps[id], location, Quaternion.identity);
+
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        powerUpObj.GetComponent<Rigidbody2D>().AddForce(randomDirection * 100f);
+
+        PowerUp powerUp = powerUpObj.GetComponent<PowerUp>();
+        if (powerUp != null) {
+            powerUp.powerUpID = id;
+        }
+    }
+
+    public GameObject getPowerUpPrefab(int id)
+    {
+        return powerUps[id];
     }
 
     public void RespawnPlayer(GameObject player)

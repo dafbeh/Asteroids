@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PowerUp : MonoBehaviour
 {
+    public int powerUpID;   
     [SerializeField] public PowerUpEffect effect;
     [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private bool pickUp = false;
@@ -13,9 +14,6 @@ public class PowerUp : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        rb2d.AddForce(randomDirection * 100f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -49,6 +47,8 @@ public class PowerUp : MonoBehaviour
 
     private void PickUp() {
         SlotManager slotManager = FindFirstObjectByType<SlotManager>();
-        slotManager.storeItem(this);
+        int powerUpID = this.powerUpID;
+
+        slotManager.storeItem(this, powerUpID);
     }
 }

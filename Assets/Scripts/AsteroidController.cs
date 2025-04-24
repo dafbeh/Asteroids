@@ -9,7 +9,7 @@ public class AsteroidController : MonoBehaviour
 {
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private float speed;
-    [SerializeField] public float size = 3;
+    [SerializeField] public int size = 3;
     [SerializeField] private ParticleSystem explosionParticle;
 
     private Camera mainCamera;
@@ -37,7 +37,7 @@ public class AsteroidController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") || collision.CompareTag("PowerUp"))
+        if (collision.CompareTag("Bullet"))
         {
             gameManager.asteroidCount--;
             if(size > 1) 
@@ -50,6 +50,12 @@ public class AsteroidController : MonoBehaviour
             Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
             ScoreManager.instance.AddScore();
+        }
+
+        if (collision.CompareTag("PowerUp")) {
+            gameManager.asteroidCount--;
+            Destroy(gameObject);
+            ScoreManager.instance.AddScore(size * 5);
         }
     }
 

@@ -12,8 +12,10 @@ public class SlotManager : MonoBehaviour
     [SerializeField] private Sprite selected;
     [SerializeField] private GameObject player;
     [SerializeField] private ParticleSystem explosion;
+    [SerializeField] private Transform dropPoint;
 
     private PowerUpEffect[] storedPowerUp = new PowerUpEffect[3];
+    private int[] storedPrefabsID = new int[3];
     private float[] storedTimers = new float[3];
     private bool[] abilityInUse = new bool[3];
     private int activeSlot = 0;
@@ -50,16 +52,20 @@ public class SlotManager : MonoBehaviour
                 useItem();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.F)) {
+            dropItem();
+        }  
     }
 
-    public void storeItem(PowerUp powerUp)
+    public void storeItem(PowerUp powerUp, int prefabID)
     {
         for(int i = 0; i < storedPowerUp.Length; i++) {
             if(storedPowerUp[i] == null) {
                 Sprite sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
                 PowerUpEffect effect = powerUp.GetComponent<PowerUp>().effect;
                 storedTimers[i] = powerUp.timer;
-
+                storedPrefabsID[i] = prefabID;
                 storedPowerUp[i] = effect;
                 slots[i].transform.GetChild(0).GetComponent<Image>().sprite = sprite;
                 slots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
@@ -113,4 +119,33 @@ public class SlotManager : MonoBehaviour
             itemActivated = false;
         }
     }
+
+public void dropItem() {
+    if (storedPowerUp[activeSlot] == null) {
+        return;
+    }
+
+    int useSlot = activeSlot;
+    Image image = slots[useSlot].transform.GetChild(0).GetComponent<Image>();
+    GameObject powerUpPrefab = FindFirstObjectByType<GameManager>().getPowerUpPrefab(storedPrefabsID[useSlot]);
+
+    if (powerUpPrefab != null) {
+        GameObject prefab = Instantiate(powerUpPrefab, dropPoint.position, dropPoint.rotation);
+        
+        PowerUp powerUp = prefab.GetComponent<PowerUp>();
+        if (powerUp != null) {
+            powerUp.powerUpID = storedPrefabsID[useSlot];
+        }
+
+        prefab.GetComponent<Rigidbody2D>().AddForce(dropPoint.up * 3f, ForceMode2D.Impulse);
+    }
+
+    image.enabled = false;
+    image.sprite = null;
+    storedPowerUp[useSlot] = null;
+    storedTimers[useSlot] = 10f;
+    abilityInUse[useSlot] = false;
+    itemActivated = false;
+}
+
 }

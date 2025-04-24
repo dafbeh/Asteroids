@@ -22,4 +22,10 @@ public class ScoreManager : MonoBehaviour
         score += 5;
         scoreText.text = score.ToString();
     }
+
+    public void AddScore(int num)
+    {
+        score += num;
+        scoreText.text = score.ToString();
+    }
 }
