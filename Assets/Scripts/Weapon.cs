@@ -9,6 +9,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] public bool autoFire = false;
     private bool firing = false;
 
+    private IAudioSystem audioSystem;
+
+    private void Awake()
+    {
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+    }
+
     void Update()
     {
         if(!autoFire) {
@@ -32,6 +39,7 @@ public class Weapon : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
+        audioSystem.PlaySound("Sounds/laser");
     }
 
     private IEnumerator fireCooldown(float cooldown) {

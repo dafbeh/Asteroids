@@ -9,7 +9,13 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private bool pickUp = false;
     [SerializeField] public float timer;
 
+    private IAudioSystem audioSystem;
     private Rigidbody2D rb2d;
+
+    void Awake()
+    {
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+    }
 
     void Start()
     {
@@ -23,6 +29,7 @@ public class PowerUp : MonoBehaviour
 
         if(collision.CompareTag("Player")) {
             Destroy(gameObject);
+            audioSystem.PlaySound("Sounds/equip");
             if(pickUp) {
                 PickUp();
             } else {

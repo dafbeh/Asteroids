@@ -12,9 +12,12 @@ public class igScoreBoard : MonoBehaviour
     private int previousScore;
     private int boardLocation = 5;
     private int[] scoresArray = new int[5];
+    private IAudioSystem audioSystem;
+
 
     void Awake()
     {
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
         UpdateScoreboard();
     }
 
@@ -90,6 +93,7 @@ public class igScoreBoard : MonoBehaviour
 
         if(boardLocation !=5) {
             Instantiate(confetti, confettiPoint.position, confettiPoint.rotation);
+            audioSystem.PlaySound("Sounds/achievement");
         }
 
         scores.text = response;
@@ -106,7 +110,6 @@ public class igScoreBoard : MonoBehaviour
         {
             lineCount++;
             if(lineCount == (boardLocation + 1)) {
-                print("board Location = " + boardLocation);            
                 result += writeLine(boardLocation + 1, activeName, currentScore, true);
             } else {
                 if(lineCount < 6) {

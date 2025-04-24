@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface Audio
+public interface IAudioSystem
 {
     void PlaySound(string soundPath);
     void StopSound(string soundPath);

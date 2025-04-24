@@ -7,6 +7,7 @@ public class BulletPower : PowerUpEffect
     private GameObject weapon;
     private GameObject player;    
     private Color orange = new Color(255, 124, 0);
+    private IAudioSystem audioSystem;
 
     public override void Apply(GameObject gameObject) {
         weapon = gameObject.transform.GetChild(0).gameObject;
@@ -14,6 +15,9 @@ public class BulletPower : PowerUpEffect
         
         player.GetComponent<SpriteRenderer>().color = orange;
         weapon.GetComponent<Weapon>().autoFire = true;
+
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+        audioSystem.PlaySound("Sounds/reload");
 
         PlayerHealth.OnPlayerDeath += deathReset;
         gameObject.GetComponent<MonoBehaviour>().StartCoroutine(resetPower());

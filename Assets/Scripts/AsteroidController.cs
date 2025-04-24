@@ -13,6 +13,7 @@ public class AsteroidController : MonoBehaviour
     [SerializeField] private ParticleSystem explosionParticle;
 
     private Camera mainCamera;
+    private IAudioSystem audioSystem;
 
     private SpriteRenderer spriteRenderer;
     private WrapAroundController wrapAroundController;
@@ -26,6 +27,7 @@ public class AsteroidController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         gameManager = FindFirstObjectByType<GameManager>();
         mainCamera = FindFirstObjectByType<Camera>();
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
     }
 
     void Start()
@@ -50,12 +52,14 @@ public class AsteroidController : MonoBehaviour
             Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
             ScoreManager.instance.AddScore();
+            audioSystem.PlaySound("Sounds/explode");
         }
 
         if (collision.CompareTag("PowerUp")) {
             gameManager.asteroidCount--;
             Destroy(gameObject);
             ScoreManager.instance.AddScore(size * 10);
+            audioSystem.PlaySound("Sounds/bigexplode");
         }
     }
 

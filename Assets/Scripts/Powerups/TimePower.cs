@@ -6,11 +6,15 @@ public class TimePower : PowerUpEffect
 {
     private GameObject player;
     private Color purple = new Color(49, 0, 123);
+    private IAudioSystem audioSystem;
 
     public override void Apply(GameObject gameObject) {
         Time.timeScale = 0.5f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
         player = gameObject;
+
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+        audioSystem.PlaySound("Sounds/time");
 
         player.GetComponent<SpriteRenderer>().color = purple;
         PlayerHealth.OnPlayerDeath += deathReset;

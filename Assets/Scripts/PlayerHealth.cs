@@ -15,8 +15,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Sprite heartEmpty;
 
     public GameManager gameManager;
+    private IAudioSystem audioSystem;
 
     public static event Action OnPlayerDeath;
+
+    void Awake()
+    {
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
                 gameManager.GameOver();
                 break;
         }
+        audioSystem.PlaySound("Sounds/death");
         Health--;
     }
 
