@@ -5,6 +5,8 @@ using System;
 public class igScoreBoard : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scores;
+    [SerializeField] private GameObject confetti;
+    [SerializeField] private Transform confettiPoint;
 
     private int currentScore;
     private int previousScore;
@@ -20,22 +22,20 @@ public class igScoreBoard : MonoBehaviour
     {
         currentScore = ScoreManager.instance.getScore();
 
-        if(currentScore > previousScore) {
-            updateLiveScore();
-            previousScore = currentScore;
-        }
-
         if (boardLocation > 1 && currentScore > scoresArray[boardLocation - 1])
         {
             UpdateScoreboard();
-            Debug.Log("Top 5 updated. Current Score: " + currentScore + " location: " + boardLocation + " next score: " + scoresArray[boardLocation - 1]);
+        }
+
+        if(currentScore > previousScore && currentScore > scoresArray[4]) {
+            updateLiveScore();
+            previousScore = currentScore;
         }
     }
 
     private void UpdateScoreboard()
     {
         string activeName = PlayerPrefs.GetString("ActiveName", "Player");
-        int activeScore = PlayerPrefs.GetInt("ActiveScore", -1);
 
         if(activeName == null) {
             activeName  = "P" + UnityEngine.Random.Range(1000, 9999);
@@ -53,7 +53,6 @@ public class igScoreBoard : MonoBehaviour
 
         string response = "";
         bool inserted = false;
-        boardLocation = 5;
 
         int count = 0;
 
@@ -64,7 +63,7 @@ public class igScoreBoard : MonoBehaviour
             if (!inserted && currentScore > scoreArray[i])
             {
                 response += writeLine(count + 1, activeName, currentScore, true);
-                boardLocation = count + 1;
+                boardLocation = count;
                 inserted = true;
                 scoresArray[count] = currentScore;
                 count++;
@@ -86,8 +85,11 @@ public class igScoreBoard : MonoBehaviour
         if (!inserted && count < 5)
         {
             response += writeLine(count + 1, activeName, currentScore, true);
-            boardLocation = count + 1;
             scoresArray[count] = currentScore;
+        }
+
+        if(boardLocation !=5) {
+            Instantiate(confetti, confettiPoint.position, confettiPoint.rotation);
         }
 
         scores.text = response;
@@ -103,8 +105,9 @@ public class igScoreBoard : MonoBehaviour
         foreach (string line in lines)
         {
             lineCount++;
-            if(lineCount == boardLocation) {                
-                result += writeLine(boardLocation, activeName, currentScore, true);
+            if(lineCount == (boardLocation + 1)) {
+                print("board Location = " + boardLocation);            
+                result += writeLine(boardLocation + 1, activeName, currentScore, true);
             } else {
                 if(lineCount < 6) {
                     result += line + Environment.NewLine;

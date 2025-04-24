@@ -55,7 +55,7 @@ public class AsteroidController : MonoBehaviour
         if (collision.CompareTag("PowerUp")) {
             gameManager.asteroidCount--;
             Destroy(gameObject);
-            ScoreManager.instance.AddScore(size * 5);
+            ScoreManager.instance.AddScore(size * 10);
         }
     }
 
