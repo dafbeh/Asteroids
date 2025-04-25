@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        LoadSettings();
         scores.text = top5();
     }
 
@@ -87,5 +88,17 @@ public class MainMenu : MonoBehaviour
     public void setName(string name) {
         PlayerPrefs.SetString("ActiveName", name);
         PlayerPrefs.Save();
+    }
+
+    private void LoadSettings() {
+        float volume = PlayerPrefs.GetFloat("Volume", 0.5f);
+        AudioListener.volume = volume;
+
+        bool isFullScreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+        Screen.fullScreen = isFullScreen;
+
+        int width = PlayerPrefs.GetInt("ResolutionWidth", Screen.currentResolution.width);
+        int height = PlayerPrefs.GetInt("ResolutionHeight", Screen.currentResolution.height);
+        Screen.SetResolution(width, height, Screen.fullScreen);
     }
 }
