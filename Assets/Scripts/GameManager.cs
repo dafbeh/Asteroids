@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] private AsteroidController asteroidPrefab;
     [SerializeField] public int asteroidCount = 0;
-    [SerializeField] private int level = 0;
-    [SerializeField] private GameObject[] powerUps;
+    [SerializeField] public int level = 0;
+    [SerializeField] public GameObject[] powerUps;
 
     private Camera mainCamera;
     private bool spawningAsteroids;

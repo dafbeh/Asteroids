@@ -16,6 +16,6 @@ public class ShrinkPower : PowerUpEffect
     protected override void RemovePower()
     {
         Resize(originalScale);
-		SetColor(Color.white);
+        SetColor(Color.white);
     }
 }

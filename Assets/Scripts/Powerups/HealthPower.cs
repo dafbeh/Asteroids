@@ -11,6 +11,9 @@ public class HealthPower : PowerUpEffect
     protected override void ApplyPower()
     {
         AddHealth();
-        PlaySound("Sounds/heal");
+    }
+
+    protected override void RemovePower() 
+    {
     }
 }

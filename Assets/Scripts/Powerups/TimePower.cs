@@ -4,7 +4,7 @@ using UnityEngine;
 public class TimePower : PowerUpEffect
 {
     [SerializeField] private float timeScale = 0.5f;
-    [SerializeField] private Color powerColor = new Color(20, 99, 6);
+    [SerializeField] private Color powerColor = new Color(40, 0, 143);
     
     public TimePower()
     {

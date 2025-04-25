@@ -30,15 +30,28 @@ public abstract class PowerUpEffect : ScriptableObject
 
     protected abstract void ApplyPower();
     
-    protected virtual void RemovePower()
-    {
-        SetColor(Color.white);
-    }
+    protected abstract void RemovePower();
 
-    protected void SetColor(Color color)
+protected void SetColor(Color color)
+{
+    if (player != null)
     {
-        player.GetComponent<SpriteRenderer>().color = color;
+        SpriteRenderer spriteRenderer = player.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = color;
+        }
+        else
+        {
+            Debug.LogError("SpriteRenderer not found on player object!");
+        }
     }
+    else
+    {
+        Debug.LogError("Player object is not assigned!");
+    }
+}
+
 
     protected void Resize(Vector3 scale)
     {

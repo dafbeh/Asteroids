@@ -51,6 +51,7 @@ public class PlayerHealth : MonoBehaviour
                 break;
         }
         audioSystem.PlaySound("Sounds/death");
+        Camera.main.GetComponent<CameraShake>().Shake(0.2f, 0.2f);
         Health--;
     }
 

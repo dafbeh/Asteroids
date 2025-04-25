@@ -9,9 +9,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField] public string userName;
     [SerializeField] private TextMeshProUGUI scores;   
     [SerializeField] private TextMeshProUGUI textbox;
+    private IAudioSystem audioSystem;
+
 
     void Awake()
     {
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+
         if (PlayerPrefs.HasKey("ActiveName")) {
             userName = PlayerPrefs.GetString("ActiveName");
         } else {
@@ -73,6 +77,7 @@ public class MainMenu : MonoBehaviour
     public void playGame()
     {
         SceneManager.LoadScene(1);
+        audioSystem.PlaySound("Sounds/menu");
     }
 
     public void quit()

@@ -54,7 +54,9 @@ public class SlotManager : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.F)) {
-            dropItem();
+            if(!abilityInUse[activeSlot]) {
+                dropItem();
+            }
         }  
     }
 

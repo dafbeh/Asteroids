@@ -15,7 +15,7 @@ public class BulletPower : PowerUpEffect
 
     protected override void RemovePower()
     {
-        SetColor(Color.white);
         SetAutoFire(false);
+        SetColor(Color.white);
     }
 }
