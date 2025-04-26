@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 public class AdaptiveMusicController : MonoBehaviour
 {
@@ -52,11 +53,11 @@ public class AdaptiveMusicController : MonoBehaviour
         float mediumTarget = 0f;
         float highTarget = 0f;
 
-        if (gameManager.asteroidCount < 5)
+        if (gameManager.asteroidCount < (gameManager.level * 2) && !gameManager.spawningAsteroids)
         {
             lowTarget = 1f;
         }
-        else if (gameManager.asteroidCount < 10)
+        else if (gameManager.asteroidCount < gameManager.level * 3 && !gameManager.spawningAsteroids)
         {
             mediumTarget = 1f;
         }
