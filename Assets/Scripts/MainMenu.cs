@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
     {
         LoadSettings();
         scores.text = top5();
+        audioSystem.PlaySound("Sounds/AdaptiveMusic/Ambient");
     }
 
     private string top5() 
@@ -78,6 +79,8 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         audioSystem.PlaySound("Sounds/menu");
+        print("stopping");
+        audioSystem.StopSound("Sound_Sounds/AdaptiveMusic/Ambient");
     }
 
     public void quit()
@@ -105,5 +108,9 @@ public class MainMenu : MonoBehaviour
         int width = PlayerPrefs.GetInt("ResolutionWidth", Screen.currentResolution.width);
         int height = PlayerPrefs.GetInt("ResolutionHeight", Screen.currentResolution.height);
         Screen.SetResolution(width, height, Screen.fullScreen);
+    }
+
+    public void playClick() {
+        audioSystem.PlaySound("Sounds/menu");
     }
 }

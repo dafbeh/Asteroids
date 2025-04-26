@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem.Interactions;
 
 public class AudioService : IAudioSystem
 {
@@ -39,11 +40,27 @@ public class AudioService : IAudioSystem
 
     public void StopSound(string soundPath)
     {
-
+        foreach (Transform child in audioSourceHolder.transform) {
+                Debug.Log("looking for: " + child.gameObject.name);
+            if(child.gameObject.name == soundPath) {
+                Debug.Log("found: " + child.gameObject.name);
+                GameObject.Destroy(child.gameObject);
+            }
+        }
     }
 
     public void StopAllSounds()
     {
+        foreach (Transform child in audioSourceHolder.transform) {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
 
+    public AudioSource AdaptiveSound(string source)
+    {
+        GameObject sourceObj = new GameObject($"PersistentAudio_{source}");
+        sourceObj.transform.SetParent(audioSourceHolder.transform);
+        AudioSource audioSource = sourceObj.AddComponent<AudioSource>();
+        return audioSource;
     }
 }

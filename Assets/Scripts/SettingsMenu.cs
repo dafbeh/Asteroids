@@ -9,6 +9,12 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Slider volSlider;
 
     Resolution[] resolutions;
+    private IAudioSystem audioSystem;
+
+    void Awake()
+    {
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
+    }
 
     void Start()
     {
@@ -36,6 +42,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     public void setRes(int resIndex) {
+        audioSystem.PlaySound("Sounds/menu");
         Resolution resolution = resolutions[resIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
 
@@ -56,5 +63,9 @@ public class SettingsMenu : MonoBehaviour
 
         PlayerPrefs.SetInt("Fullscreen", isFullScreen ? 1 : 0);
         PlayerPrefs.Save();
+    }
+
+    public void playClick() {
+        audioSystem.PlaySound("Sounds/menu");
     }
 }
