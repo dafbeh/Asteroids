@@ -1,4 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public abstract class PowerUpEffect : ScriptableObject
@@ -32,26 +35,17 @@ public abstract class PowerUpEffect : ScriptableObject
     
     protected abstract void RemovePower();
 
-protected void SetColor(Color color)
-{
-    if (player != null)
+    protected void SetColor(Color color)
     {
-        SpriteRenderer spriteRenderer = player.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        if (player != null)
         {
-            spriteRenderer.color = color;
-        }
-        else
-        {
-            Debug.LogError("SpriteRenderer not found on player object!");
+            SpriteRenderer spriteRenderer = player.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = color;
+            }
         }
     }
-    else
-    {
-        Debug.LogError("Player object is not assigned!");
-    }
-}
-
 
     protected void Resize(Vector3 scale)
     {

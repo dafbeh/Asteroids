@@ -11,9 +11,9 @@ public class AdaptiveMusicController : MonoBehaviour
     [SerializeField] private string medium = "Sounds/AdaptiveMusic/Guitar";
     [SerializeField] private string high = "Sounds/AdaptiveMusic/AllLayers";
     [SerializeField] private float fadeSpeed = 3f;
+    [SerializeField] private bool musicOn;
     
     private Dictionary<string, AudioSource> tracks = new Dictionary<string, AudioSource>();
-    private float asteroidCountPercent;
 
     void Awake()
     {
@@ -23,6 +23,8 @@ public class AdaptiveMusicController : MonoBehaviour
         setup(low);
         setup(medium);
         setup(high);
+
+        musicOn = PlayerPrefs.GetInt("music") == 1;
     }
     
     private void setup(string path)
@@ -42,9 +44,11 @@ public class AdaptiveMusicController : MonoBehaviour
 
     void Update()
     {
-        asteroidCountPercent = (gameManager.asteroidCount / (2f * gameManager.level) + 2f) * 100f;
-        
-        updateVol();
+        if(musicOn) {
+            updateVol();
+        } else {
+            mute();
+        }
     }
     
     private void updateVol()
@@ -76,6 +80,13 @@ public class AdaptiveMusicController : MonoBehaviour
         if (tracks.TryGetValue(trackPath, out AudioSource source))
         {
             source.volume = Mathf.Lerp(source.volume, targetVolume, fadeSpeed * Time.deltaTime);
+        }
+    }
+
+    private void mute()
+    {
+        foreach (var track in tracks.Values) {
+            track.volume = 0f;
         }
     }
 }

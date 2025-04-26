@@ -7,6 +7,7 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown resDropdown;
     [SerializeField] private Slider volSlider;
+    [SerializeField] private Toggle musicTog;
 
     Resolution[] resolutions;
     private IAudioSystem audioSystem;
@@ -19,6 +20,7 @@ public class SettingsMenu : MonoBehaviour
     void Start()
     {
         volSlider.value = PlayerPrefs.GetFloat("Volume", 0.5f);
+        musicTog.isOn = PlayerPrefs.GetInt("music", 1) == 1;
 
         resolutions = Screen.resolutions;
         resDropdown.ClearOptions();
@@ -63,6 +65,19 @@ public class SettingsMenu : MonoBehaviour
 
         PlayerPrefs.SetInt("Fullscreen", isFullScreen ? 1 : 0);
         PlayerPrefs.Save();
+    }
+
+    public void toggleMusic() {
+        bool check = musicTog.isOn;
+
+        PlayerPrefs.SetInt("music", check ? 1 : 0);
+        PlayerPrefs.Save();
+
+        if(check) {
+            audioSystem.PlaySound("Sounds/AdaptiveMusic/Ambient");
+        } else {
+            audioSystem.StopSound("Sound_Sounds/AdaptiveMusic/Ambient");
+        }
     }
 
     public void playClick() {

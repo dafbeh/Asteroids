@@ -41,9 +41,7 @@ public class AudioService : IAudioSystem
     public void StopSound(string soundPath)
     {
         foreach (Transform child in audioSourceHolder.transform) {
-                Debug.Log("looking for: " + child.gameObject.name);
             if(child.gameObject.name == soundPath) {
-                Debug.Log("found: " + child.gameObject.name);
                 GameObject.Destroy(child.gameObject);
             }
         }

@@ -30,7 +30,9 @@ public class MainMenu : MonoBehaviour
     {
         LoadSettings();
         scores.text = top5();
-        audioSystem.PlaySound("Sounds/AdaptiveMusic/Ambient");
+        if(PlayerPrefs.GetInt("music") == 1) {
+            audioSystem.PlaySound("Sounds/AdaptiveMusic/Ambient");
+        }
     }
 
     private string top5() 
@@ -79,7 +81,6 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         audioSystem.PlaySound("Sounds/menu");
-        print("stopping");
         audioSystem.StopSound("Sound_Sounds/AdaptiveMusic/Ambient");
     }
 

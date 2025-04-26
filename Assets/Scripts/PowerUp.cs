@@ -20,6 +20,7 @@ public class PowerUp : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        audioSystem.PlaySound("Sounds/Pop");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

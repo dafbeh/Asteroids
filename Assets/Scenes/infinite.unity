@@ -2096,6 +2096,7 @@ MonoBehaviour:
   - {fileID: 5786088576410113704, guid: e1459c692780fda4f86e1c84c8537683, type: 3}
   - {fileID: 2682278888658564274, guid: 70c98e93e2fe769478a4022b2495691e, type: 3}
   - {fileID: 3652529122425576313, guid: 0087a5d9d55a7a241b26afcceee3c343, type: 3}
+  spawningAsteroids: 0
 --- !u!4 &1533288003
 Transform:
   m_ObjectHideFlags: 0
@@ -2197,6 +2198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c0b85774be4aa45815440ac95a734d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCamera: {fileID: 0}
 --- !u!1 &1536050659
 GameObject:
   m_ObjectHideFlags: 0

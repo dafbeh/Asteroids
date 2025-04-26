@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     private CanvasGroup canvas;
+    private IAudioSystem audioSystem;
 
     void Awake()
     {
         canvas = GetComponent<CanvasGroup>();
+        audioSystem = ServiceLocator.Get<IAudioSystem>();
 
         canvas.interactable = false;
         canvas.alpha = 0;
@@ -21,6 +23,7 @@ public class GameOver : MonoBehaviour
 
     public void mainMenu()
     {
+        audioSystem.StopAllSounds();
         SceneManager.LoadScene(0);
     }
 
