@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject[] powerUps;
 
     private Camera mainCamera;
-    private bool spawningAsteroids;
+    public bool spawningAsteroids;
     private bool insideAsteroid = false;
 
     void Start()

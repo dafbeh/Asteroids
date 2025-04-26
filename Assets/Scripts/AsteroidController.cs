@@ -109,4 +109,21 @@ public class AsteroidController : MonoBehaviour
             }
         }
     }
+
+    public void CenterPush()
+    {
+        Vector3 screenCenter = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, mainCamera.nearClipPlane));
+        Vector2 direction = (screenCenter - transform.position).normalized;
+        float currentSpeed = rb2d.linearVelocity.magnitude;
+
+        if (currentSpeed < 0.1f) {
+            currentSpeed = speed * UnityEngine.Random.Range(1f, 1.5f);
+        }
+
+        rb2d.linearVelocity = direction * (currentSpeed * 2);
+
+        print("centering: " + gameObject);
+    }
+
+
 }
