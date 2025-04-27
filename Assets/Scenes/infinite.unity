@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &75823718
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.3976926
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1554769
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070706035792723, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786088576410113704, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
+      propertyPath: m_Name
+      value: pGravity
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
 --- !u!1 &118909937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,6 +2153,7 @@ MonoBehaviour:
   - {fileID: 5786088576410113704, guid: e1459c692780fda4f86e1c84c8537683, type: 3}
   - {fileID: 2682278888658564274, guid: 70c98e93e2fe769478a4022b2495691e, type: 3}
   - {fileID: 3652529122425576313, guid: 0087a5d9d55a7a241b26afcceee3c343, type: 3}
+  - {fileID: 5786088576410113704, guid: 4ef366efee03ab74caaa8fbb0167d209, type: 3}
   spawningAsteroids: 0
 --- !u!4 &1533288003
 Transform:
@@ -2186,6 +2244,7 @@ MonoBehaviour:
   medium: Sounds/AdaptiveMusic/Guitar
   high: Sounds/AdaptiveMusic/AllLayers
   fadeSpeed: 3
+  musicOn: 0
 --- !u!114 &1533288007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2346,6 +2405,7 @@ GameObject:
   - component: {fileID: 1660097354}
   - component: {fileID: 1660097356}
   - component: {fileID: 1660097358}
+  - component: {fileID: 1660097359}
   m_Layer: 0
   m_Name: ship
   m_TagString: Player
@@ -2539,6 +2599,19 @@ MonoBehaviour:
   heartFull: {fileID: 1564688358316481467, guid: f5731a045397daf42850021daa0584fd, type: 3}
   heartEmpty: {fileID: 8522625820373494394, guid: f5731a045397daf42850021daa0584fd, type: 3}
   gameManager: {fileID: 1533288002}
+--- !u!114 &1660097359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660097351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2566fad1e388323488129552a46a12a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ripple: {fileID: 7456181676195215967, guid: e3fc05356ae89d84eae0dacda715ed21, type: 3}
 --- !u!1 &1676969525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2904,3 +2977,4 @@ SceneRoots:
   - {fileID: 1533288003}
   - {fileID: 173510389}
   - {fileID: 1718699186}
+  - {fileID: 75823718}

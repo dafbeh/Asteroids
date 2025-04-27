@@ -62,6 +62,8 @@ public class SlotManager : MonoBehaviour
 
     public void storeItem(PowerUp powerUp, int prefabID)
     {
+        bool full = true;
+
         for(int i = 0; i < storedPowerUp.Length; i++) {
             if(storedPowerUp[i] == null) {
                 Sprite sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
@@ -71,10 +73,13 @@ public class SlotManager : MonoBehaviour
                 storedPowerUp[i] = effect;
                 slots[i].transform.GetChild(0).GetComponent<Image>().sprite = sprite;
                 slots[i].transform.GetChild(0).GetComponent<Image>().enabled = true;
+                full = false;
                 break;
-            } else {
-                Instantiate(explosion, player.transform.position, Quaternion.identity);
             }
+        }
+        
+        if(full) {
+            Instantiate(explosion, player.transform.position, Quaternion.identity);
         }
     }
 
@@ -122,32 +127,31 @@ public class SlotManager : MonoBehaviour
         }
     }
 
-public void dropItem() {
-    if (storedPowerUp[activeSlot] == null) {
-        return;
-    }
-
-    int useSlot = activeSlot;
-    Image image = slots[useSlot].transform.GetChild(0).GetComponent<Image>();
-    GameObject powerUpPrefab = FindFirstObjectByType<GameManager>().getPowerUpPrefab(storedPrefabsID[useSlot]);
-
-    if (powerUpPrefab != null) {
-        GameObject prefab = Instantiate(powerUpPrefab, dropPoint.position, dropPoint.rotation);
-        
-        PowerUp powerUp = prefab.GetComponent<PowerUp>();
-        if (powerUp != null) {
-            powerUp.powerUpID = storedPrefabsID[useSlot];
+    public void dropItem() {
+        if (storedPowerUp[activeSlot] == null) {
+            return;
         }
 
-        prefab.GetComponent<Rigidbody2D>().AddForce(dropPoint.up * 3f, ForceMode2D.Impulse);
+        int useSlot = activeSlot;
+        Image image = slots[useSlot].transform.GetChild(0).GetComponent<Image>();
+        GameObject powerUpPrefab = FindFirstObjectByType<GameManager>().getPowerUpPrefab(storedPrefabsID[useSlot]);
+
+        if (powerUpPrefab != null) {
+            GameObject prefab = Instantiate(powerUpPrefab, dropPoint.position, dropPoint.rotation);
+
+            PowerUp powerUp = prefab.GetComponent<PowerUp>();
+            if (powerUp != null) {
+                powerUp.powerUpID = storedPrefabsID[useSlot];
+            }
+
+            prefab.GetComponent<Rigidbody2D>().AddForce(dropPoint.up * 3f, ForceMode2D.Impulse);
+        }
+
+        image.enabled = false;
+        image.sprite = null;
+        storedPowerUp[useSlot] = null;
+        storedTimers[useSlot] = 10f;
+        abilityInUse[useSlot] = false;
+        itemActivated = false;
     }
-
-    image.enabled = false;
-    image.sprite = null;
-    storedPowerUp[useSlot] = null;
-    storedTimers[useSlot] = 10f;
-    abilityInUse[useSlot] = false;
-    itemActivated = false;
-}
-
 }

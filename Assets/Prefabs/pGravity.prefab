@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2373985366991384611}
   - component: {fileID: 6787434900847916121}
   m_Layer: 0
-  m_Name: pShrink
+  m_Name: pGravity
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5786088576410113704}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.6480975, y: -0.5966044, z: 0}
+  m_LocalPosition: {x: -3.05, y: -0.12, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5564197667937651538, guid: c4fd2aee9621fa5409b7a1a15d5ae634, type: 3}
+  m_Sprite: {fileID: 2630020272423349702, guid: 05b3029ad63a8b2459d7ea6651c200a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 5786088576410113704}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 78dfb15497d4eb243af59a178b15d819, type: 2}
+  m_Controller: {fileID: 9100000, guid: e342bb00bd1a243448259c521e14ebfe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -200,10 +200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpID: 0
-  effect: {fileID: 11400000, guid: 9521b72faab69ba4cb99f3bb723a41e1, type: 2}
+  effect: {fileID: 11400000, guid: 10d70aa2b6f8e844db6fc68fdbc3b334, type: 2}
   explosionParticle: {fileID: 24754063844572659, guid: c8e2ed77012b4c34b9499d54a57ec4bc, type: 3}
   pickUp: 1
-  timer: 10
+  timer: 1
 --- !u!114 &6787434900847916121
 MonoBehaviour:
   m_ObjectHideFlags: 0

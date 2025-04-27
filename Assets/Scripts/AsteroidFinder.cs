@@ -64,12 +64,11 @@ public class AsteroidFinder : MonoBehaviour
     }
 
     private void levelCheck()
-{
-    if (gameManager.level != previousLevel)
     {
-        previousLevel = gameManager.level;
-        hasPushed = false;
+        if (gameManager.level != previousLevel)
+        {
+            previousLevel = gameManager.level;
+            hasPushed = false;
+        }
     }
-}
-
 }
