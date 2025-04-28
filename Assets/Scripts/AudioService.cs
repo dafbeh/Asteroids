@@ -1,35 +1,34 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.InputSystem.Interactions;
 
 public class AudioService : IAudioSystem
 {
-    private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
-    private GameObject audioSourceHolder;
+    private Dictionary<string, AudioClip> sounds = new Dictionary<string, AudioClip>();
+    private GameObject audioHolder;
 
     public AudioService()
     {
-        audioSourceHolder = new GameObject("AudioSources");
-        GameObject.DontDestroyOnLoad(audioSourceHolder);
+        audioHolder = new GameObject("AudioSources");
+        GameObject.DontDestroyOnLoad(audioHolder);
     }
 
     public void PlaySound(string soundPath)
     {
-        if (!audioClips.TryGetValue(soundPath, out AudioClip clip))
+        if (!sounds.TryGetValue(soundPath, out AudioClip clip))
         {
             clip = Resources.Load<AudioClip>(soundPath);
             
             if (clip == null)
             {
-                Debug.LogWarning($"Audio clip not found at path: {soundPath}");
+                Debug.LogWarning("Audio not found at: " + soundPath);
                 return;
             }
             
-            audioClips[soundPath] = clip;
+            sounds[soundPath] = clip;
         }
 
-        GameObject sourceObj = new GameObject($"Sound_{soundPath}");
-        sourceObj.transform.SetParent(audioSourceHolder.transform);
+        GameObject sourceObj = new GameObject("Sound_" + soundPath);
+        sourceObj.transform.SetParent(audioHolder.transform);
         
         AudioSource source = sourceObj.AddComponent<AudioSource>();
         source.clip = clip;
@@ -40,8 +39,8 @@ public class AudioService : IAudioSystem
 
     public void StopSound(string soundPath)
     {
-        foreach (Transform child in audioSourceHolder.transform) {
-            if(child.gameObject.name == soundPath) {
+        foreach (Transform child in audioHolder.transform) {
+            if(child.gameObject.name == "Sound_" + soundPath) {
                 GameObject.Destroy(child.gameObject);
             }
         }
@@ -49,15 +48,15 @@ public class AudioService : IAudioSystem
 
     public void StopAllSounds()
     {
-        foreach (Transform child in audioSourceHolder.transform) {
+        foreach (Transform child in audioHolder.transform) {
             GameObject.Destroy(child.gameObject);
         }
     }
 
-    public AudioSource AdaptiveSound(string source)
+    public AudioSource AdaptiveSound(string soundPath)
     {
-        GameObject sourceObj = new GameObject($"PersistentAudio_{source}");
-        sourceObj.transform.SetParent(audioSourceHolder.transform);
+        GameObject sourceObj = new GameObject("layerdAudio_" + soundPath);
+        sourceObj.transform.SetParent(audioHolder.transform);
         AudioSource audioSource = sourceObj.AddComponent<AudioSource>();
         return audioSource;
     }

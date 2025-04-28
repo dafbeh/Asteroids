@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using Helpers;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [SerializeField] private GameObject player;
     [SerializeField] private AsteroidController asteroidPrefab;
     [SerializeField] public int asteroidCount = 0;
     [SerializeField] public int level = 0;
@@ -14,10 +16,17 @@ public class GameManager : MonoBehaviour
     public bool spawningAsteroids;
     private bool insideAsteroid = false;
 
+    private DateTime startTime;
+    private bool timerOn;
+    private float matchLength;
+    public int bulletsHit = 0;
+
     void Start()
     {
         instance = this;
         mainCamera = Camera.main;
+        startTime = DateTime.Now;
+        timerOn = true;
     }
 
     void Update()
@@ -26,6 +35,10 @@ public class GameManager : MonoBehaviour
         {
             level++;
             StartCoroutine(SpawnAsteroidsWithDelay());
+        }
+
+        if(timerOn) {
+            matchLength += Time.deltaTime;
         }
     }
 
@@ -48,12 +61,12 @@ public class GameManager : MonoBehaviour
     }
 
     private void spawnPowerup() {
-        int id = Random.Range(0, powerUps.Length);
+        int id = UnityEngine.Random.Range(0, powerUps.Length);
         Vector3 location = SpawnHelper.randomScreenLocation(0f);
 
         GameObject powerUpObj = Instantiate(powerUps[id], location, Quaternion.identity);
 
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
         powerUpObj.GetComponent<Rigidbody2D>().AddForce(randomDirection * 100f);
 
         PowerUp powerUp = powerUpObj.GetComponent<PowerUp>();
@@ -102,12 +115,21 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        timerOn = false;
         int score = ScoreManager.instance.getScore();
         Leaderboard.instance.updateLeaderboard(score);
 
         PlayerPrefs.SetInt("ActiveScore", score);
         PlayerPrefs.Save();
-        
+
+        saveGame();
         FindFirstObjectByType<GameOver>().toggleGameOver();
+    }
+
+    private void saveGame() {
+        int shot = player.GetComponent<Weapon>().bulletsShot;
+        string name = PlayerPrefs.GetString("ActiveName", "N/A");
+        int score = PlayerPrefs.GetInt("ActiveScore", -1);
+        GetComponent<StatsManager>().saveGame(startTime, matchLength, name, score, level, shot, bulletsHit);
     }
 }

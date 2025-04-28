@@ -15,6 +15,7 @@ public class GravityPower : PowerUpEffect
     protected override void ApplyPower()
     {
         sentGravity();
+        PlaySound("sounds/gravity");
         FindFirstObjectByType<PlayerRipple>().ripplePlayer();
     }
 

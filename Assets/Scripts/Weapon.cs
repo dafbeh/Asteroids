@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float fireForce = 20f;
     [SerializeField] public bool autoFire = false;
     private bool firing = false;
+    public int bulletsShot = 0;
 
     private IAudioSystem audioSystem;
 
@@ -40,6 +41,7 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
         audioSystem.PlaySound("Sounds/laser");
+        bulletsShot++;
     }
 
     private IEnumerator fireCooldown(float cooldown) {

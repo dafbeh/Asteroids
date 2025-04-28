@@ -81,7 +81,7 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         audioSystem.PlaySound("Sounds/menu");
-        audioSystem.StopSound("Sound_Sounds/AdaptiveMusic/Ambient");
+        audioSystem.StopSound("Sounds/AdaptiveMusic/Ambient");
     }
 
     public void quit()

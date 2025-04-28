@@ -46,8 +46,8 @@ public class PlayerHealth : MonoBehaviour
                 break;
             case 1:
                 handleEffects(0);
-                Destroy(gameObject);
                 gameManager.GameOver();
+                Destroy(gameObject);
                 break;
         }
         audioSystem.PlaySound("Sounds/death");

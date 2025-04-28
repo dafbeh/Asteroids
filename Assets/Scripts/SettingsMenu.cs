@@ -76,7 +76,7 @@ public class SettingsMenu : MonoBehaviour
         if(check) {
             audioSystem.PlaySound("Sounds/AdaptiveMusic/Ambient");
         } else {
-            audioSystem.StopSound("Sound_Sounds/AdaptiveMusic/Ambient");
+            audioSystem.StopSound("Sounds/AdaptiveMusic/Ambient");
         }
     }
 

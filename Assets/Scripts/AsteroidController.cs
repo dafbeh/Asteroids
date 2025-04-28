@@ -122,7 +122,6 @@ public class AsteroidController : MonoBehaviour
 
         rb2d.linearVelocity = direction * (currentSpeed * 2);
 
-        print("centering: " + gameObject);
     }
 
 

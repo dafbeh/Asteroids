@@ -4,11 +4,16 @@ using System.Collections;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float travelTime = 0.80f;
+    [SerializeField] private Weapon weapon;
     private Camera mainCamera;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
+        if (collision.CompareTag("Asteroid"))
+        {
+            GameManager.instance.bulletsHit++;
+        }
     }
 
     void Start()
