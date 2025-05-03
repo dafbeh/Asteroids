@@ -56,25 +56,18 @@ public class MainMenu : MonoBehaviour
         }
         return response;
     }
-
     private string writeLine(int location, string name, int score, bool green) {
-
-        string line = location + ". " + name + " \t" + score + Environment.NewLine;
-
-        if(name.Length <= 3) {
-            line = location + ". " + name + " \t\t" + score + Environment.NewLine;
-        }
-
+        string locationStr = location + ". ";
+        string nameStr = name;
+        string scoreStr = score.ToString();
+        
+        string result = string.Format("{0}{1,-8}{2}", locationStr, nameStr, scoreStr) + Environment.NewLine;
+        
         if(green) {
-            line = location + ". " + name + " \t" + score + Environment.NewLine;
-            line = $"<color=#00FF00>{line}</color>";
-
-            if(name.Length <= 3) {
-                line = location + ". " + name + " \t\t" + score + Environment.NewLine;
-            }
+            result = $"<color=#00FF00>{result}</color>";
         }
-
-        return line;
+        
+        return result;
     }
 
     public void playGame()

@@ -25,12 +25,12 @@ public class igScoreBoard : MonoBehaviour
     {
         currentScore = ScoreManager.instance.getScore();
 
-        if (boardLocation > 1 && currentScore > scoresArray[boardLocation - 1])
+        if (boardLocation > 0 && currentScore > scoresArray[boardLocation - 1])
         {
             UpdateScoreboard();
         }
 
-        if(currentScore > previousScore && currentScore > scoresArray[4]) {
+        if(currentScore > previousScore && boardLocation < 5) {
             updateLiveScore();
             previousScore = currentScore;
         }
@@ -88,10 +88,15 @@ public class igScoreBoard : MonoBehaviour
         if (!inserted && count < 5)
         {
             response += writeLine(count + 1, activeName, currentScore, true);
+            boardLocation = count;
             scoresArray[count] = currentScore;
         }
+        else if (!inserted)
+        {
+            boardLocation = 5;
+        }
 
-        if(boardLocation !=5) {
+        if(boardLocation < 5) {
             Instantiate(confetti, confettiPoint.position, confettiPoint.rotation);
             audioSystem.PlaySound("Sounds/achievement");
         }
@@ -121,22 +126,16 @@ public class igScoreBoard : MonoBehaviour
     }
 
     private string writeLine(int location, string name, int score, bool green) {
-
-        string line = location + ". " + name + " \t" + score + Environment.NewLine;
-
-        if(name.Length <= 3) {
-            line = location + ". " + name + " \t\t" + score + Environment.NewLine;
-        }
-
+        string locationStr = location + ". ";
+        string nameStr = name;
+        string scoreStr = score.ToString();
+        
+        string result = string.Format("{0}{1,-8}{2}", locationStr, nameStr, scoreStr) + Environment.NewLine;
+        
         if(green) {
-            line = location + ". " + name + " \t" + score + Environment.NewLine;
-            line = $"<color=#00FF00>{line}</color>";
-
-            if(name.Length <= 3) {
-                line = location + ". " + name + " \t\t" + score + Environment.NewLine;
-            }
+            result = $"<color=#00FF00>{result}</color>";
         }
-
-        return line;
+        
+        return result;
     }
 }
